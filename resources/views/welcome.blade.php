@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="layout-menu-fixed" data-base-url="{{url('/')}}" data-framework="laravel">
-  @section('title', __('Welcome'))
+  @section('title', __('SIP-CUTI'))
   <head>
     @include('partials.head')
   </head>
@@ -24,7 +24,7 @@
           <div class="row g-0">
             <div class="col-md-6 d-flex align-items-center">
               <div class="card-body">
-                <h1 class="h4 card-title">Kementerian Agama</h1>
+                <h1 class="h4 card-title">Sistem Informasi Pengelolaan Cuti</h1>
                 <h6 class="card-text mb-5">Kantor Kementerian Agama Kabupaten Sumba Timur</h6>
                 <!-- <ul class="mb-0">
                   <li class="mb-3">Read the Laravel <a href="https://laravel.com/docs" target="_blank">Documentation</a></li>

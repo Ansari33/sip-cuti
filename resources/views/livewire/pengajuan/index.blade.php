@@ -13,7 +13,7 @@
         <input placeholser="cari..." wire:model="search" class="form-control" wire:keydown="searchData" />
       </div>
       <div class="col-lg-1 mt-5">
-        <a class="btn btn-primary ml-4" href="{{ route('pengajuan-cuti.add') }}" wire:navigate>{{ __('Baru') }}</a>
+        <a class="btn btn-primary ml-4" href="{{ route('pengajuan.add') }}" wire:navigate>{{ __('Baru') }}</a>
       </div>
     </div>
     <div class="m-2">

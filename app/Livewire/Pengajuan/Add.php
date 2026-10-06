@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Livewire\PengajuanCuti;
+namespace App\Livewire\Pengajuan;
 
 use App\Models\JenisCuti;
 use App\Models\Pegawai;
-use App\Models\PengajuanCuti;
+use App\Models\Pengajuan;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
@@ -27,7 +27,7 @@ class Add extends Component
     }
 
     public function submit(){
-        PengajuanCuti::create([
+        Pengajuan::create([
             'id_pegawai'       => $this->pengaju,
             'id_jenis_cuti'    => $this->jenis,
             'jumlah_hari'      => $this->jumlah,

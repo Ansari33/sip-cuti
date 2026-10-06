@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Livewire\PengajuanCuti;
+namespace App\Livewire\Pengajuan;
 
 use Livewire\Component;
-use App\Models\PengajuanCuti;
+use App\Models\Pengajuan;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
@@ -14,8 +14,8 @@ class Index extends Component
 
     public function render()
     {
-        $data = PengajuanCuti::paginate(15);
-        return view('livewire.pengajuan-cuti.index',['data' => $data]);
+        $data = Pengajuan::paginate(15);
+        return view('livewire.pengajuan.index',['data' => $data]);
     }
 
     public function searchData(){
@@ -36,7 +36,7 @@ class Index extends Component
 
     public function delete($data)
     {
-        $pegawai = PengajuanCuti::where('id',$data['id'])->first();
+        $pegawai = Pengajuan::where('id',$data['id'])->first();
         $pegawai->delete();
         LivewireAlert::title('Data Terhapus!')
             ->success()

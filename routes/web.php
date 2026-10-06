@@ -13,28 +13,7 @@ use App\Models\Kecamatan;
 use App\Models\Pegawai;
 use Illuminate\Support\Facades\Storage;
 
-Route::get('/', [LandingController::class, 'beranda'])->name('landing');
 
-Route::prefix('profil')->group(function () {
-  Route::get('/sejarah', [LandingController::class, 'sejarah'])->name('sejarah');
-  Route::get('/visi-misi', [LandingController::class, 'visiMisi'])->name('visi-misi');
-  Route::get('/tugas-fungsi', [LandingController::class, 'tugasFungsi'])->name('tugas-fungsi');
-});
-
-Route::get('/unit-kerja', [LandingController::class, 'unitKerja'])->name('unit-kerja');
-Route::get('/berita', [LandingController::class, 'berita'])->name('berita-list');
-Route::get('/berita/{judul}', [LandingController::class, 'bacaBerita'])->name('baca-berita');
-
-Route::prefix('informasi')->group(function () {
-  Route::get('/data-keagamaan', [LandingController::class, 'dataKeagamaan'])->name('data-keagamaan');
-  Route::get('/data-pendidikan', [LandingController::class, 'dataPendidikan'])->name('data-pendidikan');
- // Route::get('/tugas-fungsi', [LandingController::class, 'tugasFungsi'])->name('tugas-fungsi');
-});
-
-Route::prefix('zi')->group(function () {
-  Route::get('/manajemen-perubahan', [LandingController::class, 'manajemenPerubahan'])->name('manajemen-perubahan');
-  
-});
 
 Route::get('/gambar-file/{filename}', function ($filename) {
     $path = 'gambar/' . $filename;
@@ -44,7 +23,7 @@ Route::get('/gambar-file/{filename}', function ($filename) {
     return response()->file(storage_path('app/private/' . $path));
 });
 
-Route::get('/admin', function () { return view('welcome');})->name('admin');
+Route::get('/', function () { return view('welcome');})->name('admin');
 Route::middleware(['auth', 'verified'])->group(function () {
   Volt::route('dashboard', 'dashboard')->name('dashboard');
 });
@@ -111,10 +90,10 @@ Route::middleware(['auth', 'verified'])->prefix('laporan-kinerja')->group(functi
 
     Route::middleware(['auth', 'verified'])->prefix('cuti')->group(function () {
       Route::prefix('pengajuan')->group(function () {
-        Volt::route('/', 'pengajuan-cuti.index')->name('pengajuan-cuti');
-        Volt::route('add', 'pengajuan-cuti.add')->name('pengajuan-cuti.add');
-        Volt::route('edit/{id}', 'pengajuan-cuti.edit')->name('pengajuan-cuti.edit');
-        Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('pengajuan-cuti.delete');    
+        Volt::route('/', 'pengajuan.index')->name('pengajuan');
+        Volt::route('add', 'pengajuan.add')->name('pengajuan.add');
+        Volt::route('edit/{id}', 'pengajuan.edit')->name('pengajuan.edit');
+        Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('pengajuan.delete');    
     });
 
     Route::prefix('jenis')->group(function () {

@@ -13,10 +13,7 @@ new class extends Component {
     public function mount() 
     {
        
-        $this->last = NomorSurat::whereYear('created_at',date('Y'))->max('nomor') ? : '0';
-        $this->totalHari = NomorSurat::whereDate('created_at',date('Y-m-d'))->count();
-        $this->totalBulan = NomorSurat::whereYear('created_at',date('Y'))->whereMonth('created_at',date('m'))->count();
-        $this->totalTahun = NomorSurat::whereYear('created_at',date('Y'))->count();
+   
        // $this->dispatchSelf('alert');
     } 
 

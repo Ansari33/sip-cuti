@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\PengajuanCuti;
+namespace App\Livewire\Pengajuan;
 
-use App\Models\PengajuanCuti;
+use App\Models\Pengajuan;
 use App\Models\Pegawai;
 use App\Models\JenisCuti;
 use Livewire\Component;
@@ -37,7 +37,7 @@ class Edit extends Component
         return view('livewire.pengajuan-cuti.edit',compact('pegawai','cutis'));
     }
     public function mount($id){
-         $this->data = PengajuanCuti::find($id);
+         $this->data = Pengajuan::find($id);
          $this->pengaju = $this->data->id_pegawai;
          $this->jenis = $this->data->id_jenis_cuti;
          $this->jumlah = $this->data->jumlah_hari;
@@ -49,7 +49,7 @@ class Edit extends Component
     }
 
     public function update(){
-        $pegawai = PengajuanCuti::find($this->data->id);
+        $pegawai = Pengajuan::find($this->data->id);
         $pegawai->id_pegawai        = $this->pengaju;
         $pegawai->id_jenis_cuti     = $this->jenis;
         $pegawai->jumlah_hari       = $this->jumlah;

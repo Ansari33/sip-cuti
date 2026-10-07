@@ -11,7 +11,7 @@ use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
-    public string $email = '';
+    public string $email = 'default@mail.com';
     public string $password = '';
     public string $nip = '';
     public string $password_confirmation = '';
@@ -28,19 +28,28 @@ new #[Layout('components.layouts.auth')] class extends Component {
         
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+               
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
             'terms' => ['accepted'],
             'nip' => ['required']
         ]);
 
-        if(!$this->cekNip($this->nip)){
-            $this->addError('nip', 'NIP anda tidak Ditemukan!');
+        if($this->cekNip($this->nip)){
+            $this->addError('nip', 'NIP anda tidak Digunakan!');
             return;
         }
         $validated['password'] = Hash::make($validated['password']);
 
         event(new Registered(($user = User::create($validated))));
+
+        Pegawai::create([
+            'nama' => $this->name,
+            'nip'  => $this->nip,
+            'pangkat_gol' => '-',
+            'jabatan' => '-',
+            'unit_kerja' => '-',
+        ]);
 
         Auth::login($user);
 
@@ -111,21 +120,33 @@ new #[Layout('components.layouts.auth')] class extends Component {
             @enderror
         </div>
 
-        <div class="mb-6">
-            <label for="email" class="form-label">{{ __('Email') }}</label>
-            <input
+        <input
                 wire:model="email"
-                type="email"
-                class="form-control @error('email') is-invalid @enderror"
+                type="hidden"
+                class="form-control @error('nip') is-invalid @enderror"
                 id="email"
                 required
                 autocomplete="email"
-                placeholder="{{ __('Enter your email') }}"
+                placeholder="{{ __('Email') }}"
+            >
+        {{-- 
+        <div class="mb-6">
+            <label for="email" class="form-label">{{ __('NIP') }}</label>
+            <input
+                wire:model="email"
+                type="text"
+                class="form-control @error('nip') is-invalid @enderror"
+                id="email"
+                required
+                autocomplete="email"
+                placeholder="{{ __('Email') }}"
             >
             @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        --}}
+
 
         <div class="mb-6 form-password-toggle">
             <label class="form-label" for="password">{{ __('Password') }}</label>

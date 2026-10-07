@@ -28,15 +28,15 @@ class Add extends Component
 
     public function submit(){
         Pengajuan::create([
-            'id_pegawai'       => $this->pengaju,
-            'id_jenis_cuti'    => $this->jenis,
-            'jumlah_hari'      => $this->jumlah,
-            'tanggal_pengajuan'    => $this->tanggal_pengajuan,
-            'tanggal_mulai'    => $this->tanggal_mulai,
-            'tanggal_selesai'  => $this->tanggal_berakhir,
-            'alasan'           => $this->alasan,
-            'tahun'           => $this->tahun,
-            'status'           => 'Pengajuan' 
+            'id_pegawai'            => $this->pengaju,
+            'id_jenis_cuti'         => $this->jenis,
+            'jumlah_hari'           => $this->jumlah,
+            'tanggal_pengajuan'     => $this->tanggal_pengajuan,
+            'tanggal_mulai'         => $this->tanggal_mulai,
+            'tanggal_selesai'       => $this->tanggal_berakhir,
+            'alasan'                => $this->alasan,
+            'tahun'                 => $this->tahun,
+            'status'                => 'Pengajuan' 
         ]);
         LivewireAlert::title('Pengajuan Berhasil Ditambahkan!')
                 ->success()

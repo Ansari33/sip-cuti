@@ -3,7 +3,7 @@
   <div class="card">
     <div class="row">
       <div class="col-lg-7">
-        <h5 class="card-header">Daftar Pegawai</h5>
+        <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
       <div class="col-lg-1 mt-5">
         <a class="btn btn-success ml-4" href="{{ route('pegawai.import') }}" wire:navigate>{{ __('import') }}</a>

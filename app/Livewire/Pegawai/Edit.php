@@ -24,7 +24,7 @@ class Edit extends Component
     }
 
     public function mount($id){
-         $this->data = Pegawai::find($id);
+         $this->data = Pegawai::where('nip',$id)->first();
          $this->nama = $this->data->nama;
          $this->nip = $this->data->nip;
          $this->pangkat = $this->data->pangkat_gol;
@@ -45,6 +45,6 @@ class Edit extends Component
             ->success()
             ->show();
         // session()->flash('success','Data Berhasil Diupdate!');
-        return $this->redirect('/pegawai',navigate:true);
+        return $this->redirect('/dashboard',navigate:true);
     }
 }

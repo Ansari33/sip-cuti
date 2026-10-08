@@ -9,12 +9,18 @@
         <div class="mb-4 row">
           <label for="html5-text-input" class="col-md-2 col-form-label">Nama</label>
           <div class="col-md-10">
+            @if(auth()->user()->hasRole('admin'))
             <select name="pengaju" wire:model="pengaju" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
                 <option selected>Pilihan Pengaju</option>
                 @foreach($pegawai as $pgw => $pg)
                 <option value="{{ $pg->id }}">{{ $pg->nama }}</option>
                 @endforeach
               </select>
+            
+            @else
+            
+                        <input   class="form-control" value="{{ auth()->user()->nip.' - '.auth()->user()->name }}" id="html5-tel-input" />
+            @endif  
           </div>
         </div>
         <div class="mb-4 row">
@@ -23,7 +29,7 @@
             <select name="pengaju" wire:model="jenis" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
                 <option selected>Pilihan Cuti</option>
                 @foreach($cutis as $cts => $ct)
-                <option value="{{ $ct->id }}">{{ $ct->jenis }}</option>
+                <option value="{{ $ct['id'] }}">{{ $ct['jenis'] }}</option>
                 @endforeach
               </select>
           </div>

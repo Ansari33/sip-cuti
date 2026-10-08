@@ -22,8 +22,15 @@ class Add extends Component
     public function render()
     {
         $pegawai = Pegawai::get(['nama','id']);
-        $cutis = JenisCuti::get(['jenis','id']);
-        return view('livewire.pengajuan-cuti.add',compact('pegawai','cutis'));
+       # $cutis = JenisCuti::get(['jenis','id']);
+       $cutis = [
+        [
+            'jenis' => 'Cuti Tahunan',
+            'id'    => 'Cuti Tahunan',
+            'batas' => 12
+        ]
+       ];
+        return view('livewire.pengajuan.add',compact('pegawai','cutis'));
     }
 
     public function submit(){

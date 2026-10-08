@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('dokumen');
             $table->string('surat');
+            $table->string('alasan');
             $table->timestamps();
         });
     }

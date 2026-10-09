@@ -11,7 +11,7 @@ use Livewire\Volt\Component;
 
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
-    public string $email = 'default@mail.com';
+    public string $email = 'me@mail.com';
     public string $password = '';
     public string $nip = '';
     public string $password_confirmation = '';
@@ -35,12 +35,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
             'nip' => ['required']
         ]);
 
-        if($this->cekNip($this->nip)){
-            $this->addError('nip', 'NIP anda tidak Digunakan!');
-            return;
-        }
+        // if($this->cekNip($this->nip)){
+        //     $this->addError('nip', 'NIP anda tidak Digunakan!');
+        //     return;
+        // }
         $validated['password'] = Hash::make($validated['password']);
-
+        $validated['email'] = $validated['name'].'@mail.com';
         event(new Registered(($user = User::create($validated))));
 
         Pegawai::create([

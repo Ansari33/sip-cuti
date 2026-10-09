@@ -14,7 +14,11 @@ class Index extends Component
 
     public function render()
     {
-        $data = Pengajuan::paginate(15);
+        $data = auth()->user()->hasRole('admin') ?
+         Pengajuan::paginate(15) :
+         Pengajuan::where('nip',auth()->user()->nip)->paginate(15)
+         ;
+
         return view('livewire.pengajuan.index',['data' => $data]);
     }
 

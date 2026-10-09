@@ -1,29 +1,35 @@
-@section('title', __('Edit Cuti'))
+@section('title', __('Edit Data Cutii'))
 <div>
     <div class="card mb-1">
-        <h5 class="card-header">Edit Data Cuti</h5>
+        <h5 class="card-header">Tambah Data Cuti</h5>
     </div>
     <div class="card p-4">  
-      <form wire:submit.prevent="update">
+      <form wire:submit.prevent="submit">
         @csrf
         <div class="mb-4 row">
           <label for="html5-text-input" class="col-md-2 col-form-label">Nama</label>
           <div class="col-md-10">
-            <select name="pengaju" wire:model="pengaju" require class="form-select " aria-label="Default select example">
-                <option >Pilihan Pengaju</option>
+            @if(auth()->user()->hasRole('admin'))
+            <select  name="pengaju" wire:model="pengaju" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
+                <option selected>Pilihan Pengaju</option>
                 @foreach($pegawai as $pgw => $pg)
-                <option   value="{{ $pg['id'] }}" {{ $pg['selected'] }}>{{ $pg['nama'] }}</option>
+                <option value="{{ $pg->id }}">{{ $pg->nama }}</option>
                 @endforeach
               </select>
+            
+            @else
+            
+                        <input   class="form-control" value="{{ auth()->user()->nip.' - '.auth()->user()->name }}" id="html5-tel-input" />
+            @endif  
           </div>
         </div>
         <div class="mb-4 row">
           <label for="html5-search-input" class="col-md-2 col-form-label">Jenis Cuti</label>
           <div class="col-md-10">
-            <select name="pengaju" wire:model="jenis" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
-                <option >Pilihan Cuti</option>
+            <select wire:change="cekJenisCuti"  wire:model="jenis" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
+                <option selected>Pilihan Cuti</option>
                 @foreach($cutis as $cts => $ct)
-                <option value="{{ $ct['id'] }}" {{ $ct['selected'] }}>{{ $ct['jenis'] }}</option>
+                <option value="{{ $ct['id'] }}">{{ $ct['jenis'] }}</option>
                 @endforeach
               </select>
           </div>
@@ -31,7 +37,7 @@
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Lama Cuti</label>
           <div class="col-md-10">
-            <input name="unit_kerja" wire:model="jumlah" class="form-control" type="number" value="" id="html5-tel-input" />
+            <input name="unit_kerja" wire:model="jumlah" class="form-control" type="number" max="{{ $maxCuti }}" required />
           </div>
         </div>
         <div class="mb-4 row">
@@ -58,14 +64,32 @@
             <input name="unit_kerja" wire:model="alasan" class="form-control" type="text" value="" id="html5-tel-input" />
           </div>
         </div>
+        @if(auth()->user()->hasRole('admin'))
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Tahun</label>
           <div class="col-md-10">
             <input name="unit_kerja" wire:model="tahun" class="form-control" type="number" value="" id="html5-tel-input" />
           </div>
         </div>
+        @else
+        <input  wire:model="tahun" class="form-control" type="hidden"  />
+        @endif
+        <div class="mb-4 row">
+          <label for="html5-tel-input" class="col-md-2 col-form-label">Link dokumen</label>
+          <div class="col-md-10">
+            <input name="unit_kerja" wire:model="dokumen" class="form-control"   />
+          </div>
+        </div>
+        <div class="mb-4 row">
+          <div class="col-md-3">
+            <button type="submit" @if($disabled == 1) disabled @endif class="btn me-2 btn-success">Simpan</button>
+          </div>
+          
+          <div class="col-md-9">
+            <span class="text-warning"> {{ $info }} </span>
+          </div>
+        </div>
         
-        <button type="submit" class="btn me-2 btn-warning">Update</button>
       </form>
     </div>
 </div>

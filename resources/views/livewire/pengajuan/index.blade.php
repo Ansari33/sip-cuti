@@ -41,14 +41,14 @@
           <tr>
             <td>
               <i class="icon-base fab fa-angular text-danger me-4"></i>
-              <span class="fw-medium">{{ $p->pegawai['nama'] }}</span>
+              <span class="fw-medium">{{ $p->nama }}</span>
             </td>
             <td>{{ $p->tanggal_pengajuan }}</td>
             <td>
               {{ $p->tanggal_mulai }}
             </td>
             <td>
-              <span class="">{{ $p->tanggal_selesai }}</span>
+              <span class="">{{ $p->tanggal_berakhir }}</span>
             </td>
             <td><span class="">{{ $p->status }}</span></td>
             <td>

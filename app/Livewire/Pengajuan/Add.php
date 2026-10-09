@@ -29,7 +29,7 @@ class Add extends Component
 
     public function render()
     {
-       $pegawai = Pegawai::get(['nama','id']);
+       $pegawai = Pegawai::get(['nama','id','nip']);
        # $cutis = JenisCuti::get(['jenis','id']);
        $cutis = [
         [
@@ -43,99 +43,125 @@ class Add extends Component
     }
 
     public function cekJenisCuti(){
-        // LivewireAlert::title($this->jenis)
-        //         ->success()
-        //         ->show();
+        $sisaCuti = 0;
         if($this->jenis == 'Cuti Tahunan'){
             
-           $this->maxCuti = $this->hitungSisaCutiTahunan();
-           $this->info = 'Sisa Cuti Maksimal : '.$this->maxCuti.' Sisa Tahunan Anda Cuti Anda Tahun '.($this->tahun) -1 .' : '.$this->sisaCutiTahunLalu. ' Sisa Cuti Tahun '.date('Y').' : '. $this->sisaCutiTahunIni;
-
-           if($this->maxCuti <= 0 || $this->jumlah > $this->maxCuti){
+           $sisaCuti = $this->hitungSisaCutiTahunan();
+           if($sisaCuti <= 0 ){
                 $this->disabled = 1;
            }
 
+           $this->info = ' Sisa Cuti Tersedia : '.$sisaCuti.' Sisa Tahunan  '
+           .'Total Cuti Tahun Ini : '.$this->cekCutiTahunIni().' '
+            .($this->tahun) -1 .' : '.$this->sisaCutiTahunLalu
+            // .' Dipakai : '.$this->cutiTahunLalu
+            . ' Sisa Cuti Tahunan '.date('Y').' : '. $this->sisaCutiTahunIni;
 
         }
     }
 
     public function hitungSisaCutiTahunan(){
+        $sisaCuti = 0;
         $tahunLalu = ($this->tahun)-1;
-            $cutiTahunLalu = Pengajuan::where('nip',auth()->user()->nip)
-            ->where('tahun',$tahunLalu)
-            ->where('jenis_cuti', $this->jenis)
-            #->get();
-            ->sum('lama_cuti');
+        
+        if($this->cekCutiDuaTahun() == 24){
+            return $sisaCuti;
+        }
+    
+        $cutiTahunIni = $this->cekCutiTahunIni();
+        
+        $sisaCutiTahunIni = 12 - $cutiTahunIni <= 0 ? 0 : 12 - $cutiTahunIni;
+        $this->sisaCutiTahunIni = $sisaCutiTahunIni;
+        $sisaCuti += $sisaCutiTahunIni;
+        
+        $sisaCutiTahunLalu = 0;
+        $cutiTahunLalu = $this->cekCutiTahunLalu();
 
-            $cutiTahunIni = Pengajuan::where('nip',auth()->user()->nip)
-            ->where('tahun',$this->tahun)
-            ->where('jenis_cuti', $this->jenis)
-            ->sum('lama_cuti');
+        if($cutiTahunLalu < 12){
+            $sisaCutiTahunLalu = (12 - $cutiTahunLalu) >=6 ? 6 : 12 - $cutiTahunLalu;
+            $maksimalCuti = 12 + $sisaCutiTahunLalu;
+            $sisaCuti = $maksimalCuti - ($this->cekCutiTahunIni());
+        }
+        $this->maxCuti = $sisaCuti;
+        return $sisaCuti;
 
-            
-            $sisaCutiTahunLalu = 12 - $cutiTahunLalu >= 6 ? 6 : 12 - $cutiTahunLalu;
-            $this->$sisaCutiTahunLalu = $sisaCutiTahunLalu;
-            $sisaCutiTahunIni = 12 - $cutiTahunIni ;
-            $this->$sisaCutiTahunIni = $sisaCutiTahunIni;
-           return $sisaCuti = $sisaCutiTahunIni + $sisaCutiTahunLalu;
+    }
+
+    public function cekCutiTahunLalu(){
+        $tahunLalu = ($this->tahun) -1;
+        $pengaju = auth()->user()->hasRole('admin') ?
+        $this->pengaju:
+        auth()->user()->nip;
+        return Pengajuan::where('nip',$pengaju)
+        ->where('tahun',$tahunLalu)
+        ->where('jenis_cuti', $this->jenis)
+        #->where('status','Disetujui')
+        ->sum('lama_cuti');
+    }
+
+    public function cekCutiTahunIni(){
+        $pengaju = auth()->user()->hasRole('admin') ?
+        $this->pengaju:
+        auth()->user()->nip;
+        return Pengajuan::where('nip',$pengaju)
+        ->where('tahun',date("Y"))
+        ->where('jenis_cuti', $this->jenis)
+        #->where('status','Disetujui')
+        ->sum('lama_cuti');
+    }
+
+    public function cekCutiDuaTahun(){
+        $tahunLalu = ($this->tahun) -1;
+        $pengaju = auth()->user()->hasRole('admin') ?
+        $this->pengaju:
+        auth()->user()->nip;
+        return Pengajuan::where('nip',$pengaju)
+        ->whereIn('tahun',[$tahunLalu,date("Y")])
+        ->where('jenis_cuti', $this->jenis)
+        #->where('status','Disetujui')
+        ->sum('lama_cuti');
     }
 
     public function submit(){
-        $pegawai = Pegawai::where('nip',auth()->user()->nip)->first();
-        $this->cekSisaCuti($this->jenis);
-        Pengajuan::create([
-            'nama'                  => $pegawai->nama,
-            'nip'                   => $pegawai->nip,
-            'pangkat_golongan'      => $pegawai->pangkat_gol,
-            'jabatan'               => $pegawai->jabatan,
-            'unit_kerja'            => $pegawai->unit_kerja,
-            'jenis_cuti'            => $this->jenis,
-            'lama_cuti'             => $this->jumlah,
-            'tanggal_pengajuan'     => $this->tanggal_pengajuan,
-            'tanggal_mulai'         => $this->tanggal_mulai,
-            'tanggal_berakhir'      => $this->tanggal_berakhir,
-            'alasan'                => $this->alasan,
-            'tahun'                 => $this->tahun == null || $this->tahun == 0 ? intval(date("Y")) : $this->tahun ,
-            'dokumen'               => $this->dokumen,
-            'surat'                 => $this->surat,
-            'status'                => 'Pengajuan' 
-        ]);
-        LivewireAlert::title('Pengajuan Berhasil Ditambahkan!')
-                ->success()
-                ->show();
-        //session()->flash('success','Data Pegawai Berhasil Ditambah!');
-        return $this->redirect('/cuti/pengajuan',navigate:true);
+        $pegawai = auth()->user()->hasRole('admin') ? 
+        Pegawai::where('nip', $this->pengaju)->first() : 
+        Pegawai::where('nip', auth()->user()->nip)->first();
+
+        if($this->cekSisaCuti($this->jenis)){
+            Pengajuan::create([
+                'nama'                  => $pegawai->nama,
+                'nip'                   => $pegawai->nip,
+                'pangkat_golongan'      => $pegawai->pangkat_gol,
+                'jabatan'               => $pegawai->jabatan,
+                'unit_kerja'            => $pegawai->unit_kerja,
+                'jenis_cuti'            => $this->jenis,
+                'lama_cuti'             => $this->jumlah,
+                'tanggal_pengajuan'     => $this->tanggal_pengajuan,
+                'tanggal_mulai'         => $this->tanggal_mulai,
+                'tanggal_berakhir'      => $this->tanggal_berakhir,
+                'alasan'                => $this->alasan,
+                'tahun'                 => $this->tahun == null || $this->tahun == 0 ? intval(date("Y")) : $this->tahun ,
+                'dokumen'               => $this->dokumen,
+                'surat'                 => $this->surat,
+                'status'                => 'Pengajuan' 
+            ]);
+            LivewireAlert::title('Pengajuan Berhasil Ditambahkan!')
+                    ->success()
+                    ->show();
+            //session()->flash('success','Data Pegawai Berhasil Ditambah!');
+            return $this->redirect('/cuti/pengajuan',navigate:true);
+        }
+        LivewireAlert::title('Jumlah Pengajuan Cuti Lebih Dari Sisa Cuti!')
+                ->warning()
+                ->show(); 
+                return ;
     }
 
     public function cekSisaCuti($jenis){
- 
-    $cutiTahunLalu = Pengajuan::where('nip',$this->pengaju)
-        ->where('tahun',($this->tahun)-1)
-        ->where('jenis_cuti', $this->jenis)->sum('lama_cuti');
 
-        $sisaCutiTahunLalu = 12 - $cutiTahunLalu;
-        $sisaCutiTahunLalu = $sisaCutiTahunLalu >= 6 ? 6 : $sisaCutiTahunLalu;
-
-        $cutiTahunIni = Pengajuan::where('nip',$this->pengaju)
-        ->where('tahun',($this->tahun))
-        ->where('jenis_cuti', $this->jenis)->sum('lama_cuti');
-        $sisaCutiTahunIni = 12 - $cutiTahunIni;
-
-        $maksimalCuti = $sisaCutiTahunIni + $sisaCutiTahunLalu;
-
-        if ($maksimalCuti <= 0) {
-           LivewireAlert::title('Jumlah Pengajuan Cuti Telah Habis!')
-                ->danger()
-                ->show(); 
-                return ;
+        if ($this->jumlah > $this->maxCuti) {
+            return false;
         }
-        if ($this->jumlah > $maksimalCuti) {
-            LivewireAlert::title('Jumlah Pengajuan Cuti Lebih Dari Sisa Cuti!')
-                ->danger()
-                ->show(); 
-                return ;
-        }
-
         return true;
     }
 }

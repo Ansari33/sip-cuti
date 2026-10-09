@@ -11,15 +11,13 @@
           <div class="col-md-10">
             @if(auth()->user()->hasRole('admin'))
             <select  name="pengaju" wire:model="pengaju" require class="form-select " id="exampleFormControlSelect1" aria-label="Default select example">
-                <option selected>Pilihan Pengaju</option>
-                @foreach($pegawai as $pgw => $pg)
-                <option value="{{ $pg->id }}">{{ $pg->nama }}</option>
-                @endforeach
-              </select>
-            
+              <option selected>Pilihan Pengaju</option>
+              @foreach($pegawai as $pgw => $pg)
+              <option value="{{ $pg->nip }}">{{ $pg->nama }}</option>
+              @endforeach
+            </select>
             @else
-            
-                        <input   class="form-control" value="{{ auth()->user()->nip.' - '.auth()->user()->name }}" id="html5-tel-input" />
+              <input   class="form-control" value="{{ auth()->user()->nip.' - '.auth()->user()->name }}" id="html5-tel-input" />
             @endif  
           </div>
         </div>
@@ -37,31 +35,31 @@
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Lama Cuti</label>
           <div class="col-md-10">
-            <input name="unit_kerja" wire:model="jumlah" class="form-control" type="number" max="{{ $maxCuti }}" required />
+            <input name="unit_kerja" wire:model="jumlah" class="form-control" type="number"  required />
           </div>
         </div>
         <div class="mb-4 row">
           <label for="html5-email-input" class="col-md-2 col-form-label">Tanggal Pengajuan</label>
           <div class="col-md-10">
-            <input name="pangkat_gol" wire:model="tanggal_pengajuan" class="form-control" type="date" value="" id="html5-email-input" />
+            <input name="pangkat_gol" wire:model="tanggal_pengajuan" class="form-control" type="date" value="" id="html5-email-input" required />
           </div>
         </div>
         <div class="mb-4 row">
           <label for="html5-email-input" class="col-md-2 col-form-label">Tanggal Mulai</label>
           <div class="col-md-10">
-            <input name="pangkat_gol" wire:model="tanggal_mulai" class="form-control" type="date" value="" id="html5-email-input" />
+            <input name="pangkat_gol" wire:model="tanggal_mulai" class="form-control" type="date" value="" id="html5-email-input" required />
           </div>
         </div>
         <div class="mb-4 row">
           <label for="html5-url-input" class="col-md-2 col-form-label">Tanggal Berakhir</label>
           <div class="col-md-10">
-            <input name="jabatan" wire:model="tanggal_berakhir" class="form-control" type="date" value=""  />
+            <input name="jabatan" wire:model="tanggal_berakhir" class="form-control" type="date" value="" required />
           </div>
         </div>
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Alasan</label>
           <div class="col-md-10">
-            <input name="unit_kerja" wire:model="alasan" class="form-control" type="text" value="" id="html5-tel-input" />
+            <input name="unit_kerja" wire:model="alasan" class="form-control" type="text" value="" id="html5-tel-input" required />
           </div>
         </div>
         @if(auth()->user()->hasRole('admin'))
@@ -77,7 +75,7 @@
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Link dokumen</label>
           <div class="col-md-10">
-            <input name="unit_kerja" wire:model="dokumen" class="form-control"   />
+            <input name="unit_kerja" wire:model="dokumen" class="form-control"  required  />
           </div>
         </div>
         <div class="mb-4 row">

@@ -197,8 +197,9 @@ Route::get('/link', function () {
   return 'success';
 });
 
-Route::get('/kecamatan', function () {
-  return Kecamatan::get();
+Route::get('/makeadmin', function () {
+  auth()->user()->assignRole('admin');
+  return 'success';
 });
 
 

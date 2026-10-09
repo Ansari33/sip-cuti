@@ -8,7 +8,7 @@
   </div>
 
   <div class="navbar-nav-right d-flex align-items-center justify-content-end" id="navbar-collapse">
-  <h6 class="navbar-nav align-items-center">Kantor Kementerian Agama Kabupaten Sumba Timur</h6>  
+  <h6 class="navbar-nav align-items-center">Sistem Informasi Pengelolaan Cuti (SIP CUTI)</h6>  
   <!-- Search -->
     <!-- <div class="navbar-nav align-items-center me-auto">
       <div class="nav-item d-flex align-items-center">

@@ -2,9 +2,10 @@
 <div>
   <div class="card">
     <div class="row">
-      <div class="col-lg-7">
+      <div class="col-lg-11">
         <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
+      {{-- 
       <div class="col-lg-1 mt-5">
         <a class="btn btn-success ml-4" href="{{ route('pegawai.import') }}" wire:navigate>{{ __('import') }}</a>
       </div>
@@ -12,6 +13,7 @@
         
         <input placeholser="cari..." wire:model="search" class="form-control" wire:keydown="searchData" />
       </div>
+      --}}
       <div class="col-lg-1 mt-5">
         <a class="btn btn-primary ml-4" href="{{ route('pengajuan.add') }}" wire:navigate>{{ __('Baru') }}</a>
       </div>
@@ -50,7 +52,11 @@
             <td>
               <span class="">{{ $p->tanggal_berakhir }}</span>
             </td>
-            <td><span class="">{{ $p->status }}</span></td>
+            <td>
+              <span class=" @if($p->status == 'Disetujui') bg-success @elseif($p->status == 'Ditolak') bg-danger @else bg-warning @endif text-white px-2 py-1 rounded">
+                {{ $p->status }}
+              </span>
+            </td>
             <td>
               <div class="dropdown">
                 <button

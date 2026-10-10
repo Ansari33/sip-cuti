@@ -95,7 +95,7 @@ class Add extends Component
         return Pengajuan::where('nip',$pengaju)
         ->where('tahun',$tahunLalu)
         ->where('jenis_cuti', $this->jenis)
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 
@@ -106,7 +106,7 @@ class Add extends Component
         return Pengajuan::where('nip',$pengaju)
         ->where('tahun',date("Y"))
         ->where('jenis_cuti', $this->jenis)
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 
@@ -118,7 +118,7 @@ class Add extends Component
         return Pengajuan::where('nip',$pengaju)
         ->whereIn('tahun',[$tahunLalu,date("Y")])
         ->where('jenis_cuti', $this->jenis)
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 

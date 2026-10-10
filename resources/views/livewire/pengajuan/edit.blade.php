@@ -1,7 +1,7 @@
-@section('title', __('Cuti Baru'))
+@section('title', __('Edit Cuti '))
 <div>
     <div class="card mb-1">
-        <h5 class="card-header">Tambah Data Cuti</h5>
+        <h5 class="card-header">Edit Data Cuti</h5>
     </div>
     <div class="card p-4">  
       <form wire:submit.prevent="update">
@@ -74,10 +74,30 @@
         @endif
         <div class="mb-4 row">
           <label for="html5-tel-input" class="col-md-2 col-form-label">Link dokumen</label>
+          <div class="col-md-9">
+            <input  wire:model="dokumen" class="form-control"  required  />
+          </div>
+          <div class="col-md-1">
+            <a href="{{ $dokumen }}" target="_blank" class=" btn btn-secondary"><i class="bx bx-file"></i></a>
+          </div>
+          
+        </div>
+        @if(auth()->user()->hasRole('admin'))
+        <div class="mb-4 row">
+          <label for="html5-tel-input" class="col-md-2 col-form-label">Catatan</label>
           <div class="col-md-10">
-            <input name="unit_kerja" wire:model="dokumen" class="form-control"  required  />
+            <input  wire:model="catatan" class="form-control"  required  />
           </div>
         </div>
+        @endif
+        @if($status == 'Ditolak' && !auth()->user()->hasRole('admin'))
+        <div class="mb-4 row">
+          <label for="html5-tel-input" class="col-md-2 col-form-label">Catatan</label>
+          <div class="col-md-10">
+            <input name="unit_kerja" disabled wire:model="catatan" class="form-control"  required  />
+          </div>
+        </div>
+        @endif
         <div class="mb-4 row">
           <div class="col-md-1">
             <button type="submit" @if($disabled == 1) disabled @endif class="btn me-2 btn-warning">Update</button>

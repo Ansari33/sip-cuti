@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nip');
-            $table->string('pangkat_golongan');
-            $table->string('jabatan');
-            $table->string('unit_kerja');
+            $table->string('pangkat_golongan')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('unit_kerja')->nullable();
             $table->string('jenis_cuti');
             $table->integer('lama_cuti');
             $table->date('tanggal_pengajuan');
@@ -26,8 +26,9 @@ return new class extends Migration
             $table->integer('tahun');
             $table->string('status');
             $table->string('dokumen');
-            $table->string('surat');
+            $table->string('surat')->nullable();
             $table->string('alasan');
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }

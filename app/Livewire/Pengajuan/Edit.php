@@ -18,9 +18,11 @@ class Edit extends Component
     public $tanggal_mulai;
     public $tanggal_berakhir;
     public $alasan;
+    public $status;
     public $tahun ;
     public $dokumen ='-';
     public $surat ='-';
+    public $catatan ='-';
     public $disabled = 0;
     public $info;
     public $sisaCutiTahunIni;
@@ -63,6 +65,8 @@ class Edit extends Component
          $this->tahun    = $this->data->tahun;
          $this->alasan   = $this->data->alasan;
          $this->dokumen   = $this->data->dokumen;
+         $this->catatan   = $this->data->catatan;
+         $this->status   = $this->data->status;
 
          $this->cekJenisCuti();
          
@@ -161,7 +165,7 @@ class Edit extends Component
         ->where('tahun',$tahunLalu)
         ->where('jenis_cuti', $this->jenis)
         ->whereNotIn('id',[$this->data->id])
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 
@@ -173,7 +177,7 @@ class Edit extends Component
         ->where('tahun',date("Y"))
         ->where('jenis_cuti', $this->jenis)
         ->whereNotIn('id',[$this->data->id])
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 
@@ -186,7 +190,7 @@ class Edit extends Component
         ->whereIn('tahun',[$tahunLalu,date("Y")])
         ->where('jenis_cuti', $this->jenis)
         ->whereNotIn('id',[$this->data->id])
-        #->where('status','Disetujui')
+        ->where('status','Disetujui')
         ->sum('lama_cuti');
     }
 
@@ -201,8 +205,15 @@ class Edit extends Component
     }
 
     public  function tolak(){
+        if($this->catatan == '-' || $this->catatan == '') {
+            LivewireAlert::title('Catatan Harus Diisi!')
+                ->warning()
+                ->show();
+            return;
+        }
         $pengajuan = Pengajuan::find($this->data->id);
         $pengajuan->status = 'Ditolak';
+        $pengajuan->catatan = $this->catatan;
         $pengajuan->save();
         LivewireAlert::title('Pengajuan Cuti Ditolak!')
             ->warning()

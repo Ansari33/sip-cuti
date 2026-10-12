@@ -5,13 +5,13 @@
 </p>
 
 <h1 align="center">
-   <a href="https://themeselection.com/item/sneat-free-bootstrap-laravel-livewire-starter-kit/" target="_blank" align="center">
-      Sneat Design Bootstrap Laravel Starter Kit
+   <a href="https://github.com/Ansari33/sip-cuti" target="_blank" align="center">
+      Sistem Informasi Pengelolaan Cuti (SIP-CUTI)
    </a>
 </h1>
 
 <p align="center">
-   🚀 A powerful, clean, and minimal Laravel 12 Starter Kit integrated with Bootstrap 5, ready to kickstart your next big project!
+   🚀 Pengajuan dan Pengelolaan Data Cuti Pegawai Online Berbasis Web
 </p>
 
 <p align="center">
@@ -54,8 +54,8 @@ Getting started is super simple! Follow the steps below:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/themeselection/sneat-bootstrap-laravel-livewire-starter-kit.git
-   cd sneat-bootstrap-laravel-livewire-starter-kit
+   git clone https://github.com/Ansari33/sip-cuti.git
+   cd sip-cuti
    ```
 
 2. **Install Composer Dependencies**

@@ -138,17 +138,9 @@ Route::middleware(['auth', 'verified'])->prefix('laporan-kinerja')->group(functi
   });
 
 
-  Route::middleware(['auth', 'verified'])->prefix('zi')->group(function () {
-      
+  Route::middleware(['auth', 'verified'])->prefix('zi')->group(function () { 
     Volt::route('/', 'konten.index')->name('zi');
-    // Volt::route('add', 'konten.add')->name('konten.add');
-    // Volt::route('edit/{id}', 'konten.edit')->name('konten.edit');
-    // Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('data-informasi.delete');    
-   
-    
   });
-
-
 
 Route::middleware(['auth', 'verified'])->prefix('data-informasi')->group(function () {
   Volt::route('/', 'data-informasi.index')->name('data-informasi');
@@ -161,23 +153,16 @@ Route::middleware(['auth', 'verified'])->prefix('tugas')->group(function () {
   Volt::route('/', 'tugas.index')->name('tugas');
   Volt::route('add', 'tugas.add')->name('tugas.add');
   Volt::route('edit/{id}', 'tugas.edit')->name('tugas.edit');
-//  Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('tugas.delete');    
 });
 
 Route::middleware(['auth', 'verified'])->prefix('inventories')->group(function () {
   Volt::route('/', 'inventory.index')->name('inventories');
   Volt::route('add', 'inventory.add')->name('inventories.add');
   Volt::route('edit/{id}', 'inventory.edit')->name('inventories.edit');
-//  Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('tugas.delete');    
 });
 
 Route::middleware(['auth', 'verified'])->prefix('user')->group(function () {
   Route::get('/', [UserController::class, 'index'])->name('user');
-  // Route::get('/add', [PegawaiController::class, 'add'])->name('nomor-surat.add');  
-  // Route::post('/store', [PegawaiController::class, 'store'])->name('nomor-surat.store');     
-  // Route::get('/edit/{id}', [PegawaiController::class, 'edit'])->name('nomor-surat.edit');
-  // Route::patch('/update', [PegawaiController::class, 'update'])->name('nomor-surat.update');
-  // Route::get('/delete/{id}', [PegawaiController::class, 'delete'])->name('nomor-surat.delete');
   Route::get('/setrole/{u}/{r}', [UserController::class, 'setRole'])->name('user.role');    
 });
 
@@ -188,15 +173,6 @@ Route::middleware(['auth'])->group(function () {
   Volt::route('settings/password', 'settings.password')->name('settings.password');
 });
 
-Route::get('/migrate', function () {
-  Artisan::call('cache:clear');
-  Artisan::call('migrate');
-});
-
-Route::get('/link', function () {
-  Artisan::call('storage:link');
-  return 'success';
-});
 
 Route::get('/makeadmin', function () {
   auth()->user()->assignRole('admin');

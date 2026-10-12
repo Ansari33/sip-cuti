@@ -10,7 +10,3 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('pengajuan', function () {
     return true;
 });
-
-Broadcast::channel('admin', function () {
-    return auth()->user()->hasRole('admin');
-});

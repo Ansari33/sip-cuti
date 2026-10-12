@@ -2,7 +2,7 @@
 <div>
   <div class="card">
     <div class="row">
-      <div class="col-lg-7">
+      <div @if(auth()->user()->hasRole('admin')) class="col-lg-7" @else class="col-lg-10" @endif >
         <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
       {{-- 

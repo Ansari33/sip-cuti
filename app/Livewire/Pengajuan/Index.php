@@ -17,7 +17,7 @@ class Index extends Component
     public function render()
     {
         $data = auth()->user()->hasRole('admin') ?
-         Pengajuan::paginate(15) :
+         Pengajuan::where('nama','like','%'.$this->search.'%')->paginate(15) :
          Pengajuan::where('nip',auth()->user()->nip)->paginate(15)
          ;
 

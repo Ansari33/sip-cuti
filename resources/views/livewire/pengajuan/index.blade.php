@@ -2,18 +2,19 @@
 <div>
   <div class="card">
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-lg-7">
         <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
       {{-- 
       <div class="col-lg-1 mt-5">
         <a class="btn btn-success ml-4" href="{{ route('pegawai.import') }}" wire:navigate>{{ __('import') }}</a>
       </div>
+       --}}
+       @if(auth()->user()->hasRole('admin'))
       <div class="col-lg-3 mt-5">
-        
-        <input placeholser="cari..." wire:model="search" class="form-control" wire:keydown="searchData" />
+        <input placeholder="cari nama" wire:model="search" class="form-control" wire:keydown="searchData" />
       </div>
-      --}}
+      @endif
       <div class="col-lg-1 mt-5">
         <a class="btn btn-success ml-4" href="#" wire:click="exportExcel">{{ __('Excel') }}</a>
       </div>

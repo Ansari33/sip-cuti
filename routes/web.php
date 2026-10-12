@@ -93,7 +93,8 @@ Route::middleware(['auth', 'verified'])->prefix('laporan-kinerja')->group(functi
         Volt::route('/', 'pengajuan.index')->name('pengajuan');
         Volt::route('add', 'pengajuan.add')->name('pengajuan.add');
         Volt::route('edit/{id}', 'pengajuan.edit')->name('pengajuan.edit');
-        Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('pengajuan.delete');    
+        Route::get('/delete/{id}', [DataInformasiController::class, 'delete'])->name('pengajuan.delete');
+        Route::get('/export', [DataInformasiController::class, 'delete'])->name('pengajuan.export');    
     });
 
     Route::prefix('jenis')->group(function () {

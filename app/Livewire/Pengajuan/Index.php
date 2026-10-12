@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Pengajuan;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use App\Exports\PengajuanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Index extends Component
 {
@@ -46,5 +48,9 @@ class Index extends Component
             ->success()
             ->show();
         $this->resetPage();
+    }
+
+    public function exportExcel(){
+        return Excel::download(new PengajuanExport ,'ExportPengajuan'.date('Ymdhis').'.xlsx');
     }
 }

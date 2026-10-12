@@ -2,7 +2,7 @@
 <div>
   <div class="card">
     <div class="row">
-      <div class="col-lg-11">
+      <div class="col-lg-10">
         <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
       {{-- 
@@ -14,6 +14,9 @@
         <input placeholser="cari..." wire:model="search" class="form-control" wire:keydown="searchData" />
       </div>
       --}}
+      <div class="col-lg-1 mt-5">
+        <a class="btn btn-success ml-4" href="#" wire:click="exportExcel">{{ __('Excel') }}</a>
+      </div>
       <div class="col-lg-1 mt-5">
         <a class="btn btn-primary ml-4" href="{{ route('pengajuan.add') }}" wire:navigate>{{ __('Baru') }}</a>
       </div>

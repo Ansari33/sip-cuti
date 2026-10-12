@@ -36,7 +36,37 @@ class Add extends Component
             'jenis' => 'Cuti Tahunan',
             'id'    => 'Cuti Tahunan',
             'batas' => 12
-        ]
+        ],
+        [
+            'jenis' => 'Cuti Besar',
+            'id'    => 'Cuti Besar',
+            'batas' => 90
+        ],
+        [
+            'jenis' => 'Cuti Sakit',
+            'id'    => 'Cuti Sakit',
+            'batas' => 14
+        ],
+        [
+            'jenis' => 'Cuti Melahirkan',
+            'id'    => 'Cuti Melahirkan',
+            'batas' => 90
+        ],
+        [
+            'jenis' => 'Cuti Alasan Penting',
+            'id'    => 'Cuti Alasan Penting',
+            'batas' => 30
+        ],
+        [
+            'jenis' => 'Cuti Bersama',
+            'id'    => 'Cuti Bersama',
+            'batas' => 0
+        ],
+        [
+            'jenis' => 'Cuti Diluar Tanggungan Negara',
+            'id'    => 'Cuti Diluar Tanggungan Negara',
+            'batas' => 0
+        ],
        ];
        $this->tahun = intval(date("Y"));
         return view('livewire.pengajuan.add',compact('pegawai','cutis'));
@@ -158,10 +188,12 @@ class Add extends Component
     }
 
     public function cekSisaCuti($jenis){
-
-        if ($this->jumlah > $this->maxCuti) {
-            return false;
+        if($this->jenis === 'Cuti Tahunan'){
+            if ($this->jumlah > $this->maxCuti) {
+                        return false;
+                    }
         }
+        
         return true;
     }
 }

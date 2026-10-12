@@ -44,7 +44,43 @@ class Edit extends Component
             'id'    => 'Cuti Tahunan',
             'batas' => 12,
             'selected' => 'Cuti Tahunan' === $this->jenis ? 'selected' : ''
-        ]
+        ],
+        [
+            'jenis' => 'Cuti Besar',
+            'id'    => 'Cuti Besar',
+            'batas' => 90,
+            'selected' => 'Cuti Besar' === $this->jenis ? 'selected' : ''
+        ],
+        [
+            'jenis' => 'Cuti Sakit',
+            'id'    => 'Cuti Melahirkan',
+            'batas' => 14,
+            'selected' => 'Cuti Tahunan' === $this->jenis ? 'selected' : ''
+        ],
+        [
+            'jenis' => 'Cuti Melahirkan',
+            'id'    => 'Cuti Melahirkan',
+            'batas' => 90,
+            'selected' => 'Cuti Melahirkan' === $this->jenis ? 'selected' : ''
+        ],
+        [
+            'jenis' => 'Cuti Alasan Penting',
+            'id'    => 'Cuti Alasan Penting',
+            'batas' => 30,
+            'selected' => 'Cuti Alasan Penting' === $this->jenis ? 'selected' : ''
+        ],
+        [
+            'jenis' => 'Cuti Bersama',
+            'id'    => 'Cuti Bersama',
+            'batas' => 0,
+            'selected' => 'Cuti Bersama' === $this->jenis ? 'selected' : ''
+        ],
+        [
+            'jenis' => 'Cuti Diluar Tanggungan Negara',
+            'id'    => 'Cuti Diluar Tanggungan Negara',
+            'batas' => 0,
+            'selected' => 'Cuti Diluar Tanggungan Negara' === $this->jenis ? 'selected' : ''
+        ],
        ];
         return view('livewire.pengajuan.edit',compact('pegawai','cutis'));
     }
@@ -105,8 +141,10 @@ class Edit extends Component
 
       public function cekSisaCuti($jenis){
 
-        if ($this->jumlah > $this->maxCuti) {
-            return false;
+        if($this->jenis === 'Cuti Tahunan'){
+            if ($this->jumlah > $this->maxCuti) {
+                        return false;
+                    }
         }
         return true;
     }

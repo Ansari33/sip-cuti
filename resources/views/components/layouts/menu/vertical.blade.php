@@ -12,7 +12,7 @@
       <a class="menu-link" href="{{ route('dashboard') }}" wire:navigate> <i class="menu-icon tf-icons bx bx-home"></i>{{ __('Dashboard') }}</a>
     </li>
     @if(auth()->user()->hasRole('admin'))
-    <li class="menu-item {{ request()->is('pegawai') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->is('pegawai*') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('pegawai') }}" wire:navigate> <i class="menu-icon tf-icons bx bx-user"></i>{{ __('Data Pegawai') }}</a>
     </li>
     @else
@@ -20,7 +20,7 @@
       <a class="menu-link" href="{{ route('pegawai.edit',Auth::user()->nip) }}" wire:navigate> <i class="menu-icon tf-icons bx bx-user"></i>{{ __('Data Pegawai') }}</a>
     </li>
     @endif
-    <li class="menu-item {{ request()->is('pengajuan') ? 'active' : '' }}">
+    <li class="menu-item {{ request()->is('cuti*') ? 'active' : '' }}">
       <a class="menu-link" href="{{ route('pengajuan') }}" wire:navigate> <i class="menu-icon tf-icons bx bx-file"></i>{{ __('Pengajuan Cuti') }}</a>
     </li>
     

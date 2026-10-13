@@ -31,6 +31,7 @@ new class extends Component {
 
 @section('title', __('Dashboard'))
 <div class="row g-4">
+  
   <div class="col-md" wire:click="showT">
     <div class="card text-bg-warning">
       <div class="card-body">
@@ -38,18 +39,9 @@ new class extends Component {
         <p class="card-text">Pengajuan</p>
         
       </div>
-    </div>
-    
+    </div>  
   </div>
-  
-  <div class="col-md">
-    <div class="card text-bg-danger">
-      <div class="card-body">
-        <h5 class="card-title text-white">{{ $ditolak }}</h5>
-        <p class="card-text">Ditolak</p>
-      </div>
-    </div>
-  </div>
+
   <div class="col-md">
     <div class="card text-bg-success">
       <div class="card-body">
@@ -58,6 +50,16 @@ new class extends Component {
       </div>
     </div>
   </div>
+
+  <div class="col-md">
+    <div class="card text-bg-danger">
+      <div class="card-body">
+        <h5 class="card-title text-white">{{ $ditolak }}</h5>
+        <p class="card-text">Ditolak</p>
+      </div>
+    </div>
+  </div>
+  
   <div class="col-md">
     <div class="card text-bg-info">
       <div class="card-body">

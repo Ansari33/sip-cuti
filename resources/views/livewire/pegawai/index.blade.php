@@ -62,7 +62,7 @@
                   <i class="icon-base bx bx-dots-vertical-rounded"></i>
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="/pegawai/edit/{{$p->id}}" wire:navigate><i class="icon-base bx bx-edit-alt me-1"></i>Edit</a>
+                  <a class="dropdown-item" href="/pegawai/edit/{{$p->nip}}" wire:navigate><i class="icon-base bx bx-edit-alt me-1"></i>Edit</a>
                   <butt class="dropdown-item" wire:click="confirmDelete('{{ $p->nama }}')"><i class="icon-base bx bx-trash me-1"></i>Delete</button>
                 </div>
               </div>

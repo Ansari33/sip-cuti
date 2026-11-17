@@ -4,10 +4,12 @@ namespace App\Livewire\Pengajuan;
 
 use Livewire\Component;
 use App\Models\Pengajuan;
+use App\Models\Pegawai;
 use Livewire\WithPagination;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use App\Exports\PengajuanExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Index extends Component
 {
@@ -53,4 +55,20 @@ class Index extends Component
     public function exportExcel(){
         return Excel::download(new PengajuanExport ,'ExportPengajuan'.date('Ymdhis').'.xlsx');
     }
+
+    public function exportPdf()
+    {
+        $data = Pengajuan::get();
+        $pegawai = Pegawai::find(1); 
+        $pdf = Pdf::loadView('livewire.pengajuan.pdf', [],
+        [
+            'pegawai' => $pegawai,
+            'data'=>$data,
+        ]);
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'DaftarPengajuanCuti.pdf');
+    }
+
+    
 }

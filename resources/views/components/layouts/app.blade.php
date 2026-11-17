@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="layout-menu-fixed" data-base-url="{{url('/')}}" data-framework="laravel">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="layout-menu-fixed layout-menu-offcanvas" data-base-url="{{url('/')}}" data-framework="laravel">
   <head>
     @include('partials.head')
   </head>
@@ -32,6 +32,7 @@
             <!-- Footer -->
             <x-layouts.footer.default :title="$title ?? null"></x-layouts.footer.default>
             <!--/ Footer -->
+            <div class="layout-overlay"></div>
             <div class="content-backdrop fade"></div>
             <!-- / Content wrapper -->
           </div>

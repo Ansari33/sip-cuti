@@ -2,7 +2,7 @@
 <div>
   <div class="card">
     <div class="row">
-      <div @if(auth()->user()->hasRole('admin')) class="col-lg-7" @else class="col-lg-10" @endif >
+      <div @if(auth()->user()->hasRole('admin')) class="col-lg-6" @else class="col-lg-9" @endif >
         <h5 class="card-header">Daftar Pengajuan</h5>
       </div>
       {{-- 
@@ -16,10 +16,13 @@
       </div>
       @endif
       <div class="col-lg-1 mt-5">
-        <a class="btn btn-success ml-4" href="#" wire:click="exportExcel">{{ __('Excel') }}</a>
+        <a class="btn btn-outline-danger ml-2" href="#" wire:click="exportPdf">{{ __('PDF') }}</a>
       </div>
       <div class="col-lg-1 mt-5">
-        <a class="btn btn-primary ml-4" href="{{ route('pengajuan.add') }}" wire:navigate>{{ __('Baru') }}</a>
+        <a class="btn btn-success ml-2" href="#" wire:click="exportExcel">{{ __('Excel') }}</a>
+      </div>
+      <div class="col-lg-1 mt-5">
+        <a class="btn btn-primary ml-2" href="{{ route('pengajuan.add') }}" wire:navigate>{{ __('Baru') }}</a>
       </div>
     </div>
     <div class="m-2">

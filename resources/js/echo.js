@@ -32,10 +32,10 @@ if (reverbKey) {
     timerProgressBar: true,
   });
 
-  window.Echo.private('admin').listen('PengajuanNomor', (event) => {
-    Toast.fire({
-      icon: 'info',
-      title: event.message,
-    });
-  });
+  // window.Echo.private('admin').listen('PengajuanNomor', (event) => {
+  //   Toast.fire({
+  //     icon: 'info',
+  //     title: event.message,
+  //   });
+  // });
 }

@@ -34,8 +34,8 @@ class PengajuanNomor implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new Channel('pengajuan'),
-            new PrivateChannel('admin'),
+           // new Channel('pengajuan'),
+           // new PrivateChannel('admin'),
         ];
     }
 }
